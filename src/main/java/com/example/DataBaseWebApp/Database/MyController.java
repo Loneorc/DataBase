@@ -95,5 +95,24 @@ public class MyController {
                 + studentRepository.findAll().toString();
     }
 
+    @GetMapping("/studentupdate")
+    @ResponseBody
+    public ResponseEntity<String>  updateStudent(@RequestParam long id, String firstname){
+
+String test = "Test";
+        return
+        ResponseEntity.ok("<form action=\"/student\" method=\"POST\">\n" +
+                "<input name=\"firstName\" placeholder= " + studentRepository.findById(id).get().getFirstName() + " >\n" +
+                "<input name=\"lastName\" placeholder= " + studentRepository.findById(id).get().getLastName() + ">\n" +
+                "<input name=\"age\" placeholder= " + studentRepository.findById(id).get().getAge() + " >\n"+
+                "<input name=\"email\" placeholder= " + studentRepository.findById(id).get().getEmail() + " >\n"+
+                "<input name=\"department\" placeholder= " + studentRepository.findById(id).get().getDepartment() + " >\n"+
+                "<input name=\"phoneNumber\" placeholder= " + studentRepository.findById(id).get().getPhoneNumber() + " >\n"+
+                "<button>SET</button>\n" +
+                "</form>" +
+
+                studentRepository.findById(id).toString());
+
+    }
 
 }

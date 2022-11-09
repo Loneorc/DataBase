@@ -75,7 +75,8 @@ public class Student {
 
     @Override
     public String toString() {
-String link  = "<a href=\"/studentdelete?id=" + id +"\">DELETE</a>\"";
+String deleteLink  = "<a href=\"/studentdelete?id=" + id +"\">DELETE</a>\"";
+String updateLink = "<a href=\"/studentupdate?id=" + id +"\">UPDATE</a>\"";
 
         return "<h2>Student " + id + "</h2>"+
                 "<ul> " +
@@ -83,11 +84,11 @@ String link  = "<a href=\"/studentdelete?id=" + id +"\">DELETE</a>\"";
                 "<li>Tea</li> " +
                 "<li>Milk</li> " +
                 "</ul>" +
-                "<form action=\"/studentdelete?id=1\" method=\"GET\">\n" +
+                "<form action=\"/studentdelete?id="+ id+"\" method=\"GET\">\n" +
                 //"<name=\"getId()\">" +
                 "<button>Delete" + getId() + "</button>\n" +
                 "</form>" +
-                link;
+                deleteLink + "\t" + updateLink;
     }
 
 
