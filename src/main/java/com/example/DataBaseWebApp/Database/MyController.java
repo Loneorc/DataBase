@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class MyController {
@@ -25,7 +23,6 @@ public class MyController {
     @GetMapping("/add")
     @ResponseBody
     public ResponseEntity<String> addsStudent() {
-
 
 
         return ResponseEntity.ok("<form action=\"/student\" method=\"POST\">\n" +
@@ -73,17 +70,23 @@ public class MyController {
     @GetMapping("/studentcheck")
     @ResponseBody
     public String getStudent(){
+
+
+        Iterable<Student> allStudents = studentRepository.findAll();
+
         return "<form action=\"/add\" method=\"GET\">\n" +
                 "<button>Back to the main page</button>\n" +
                 "</form>" +
                 studentRepository.findAll().toString();
+
+
     }
 
     @PostMapping("/studentdelete")
     @ResponseBody
     public String deleteStudent(long id){
-        studentRepository.deleteAllById(Collections.singleton(id));
 
+        studentRepository.deleteAllById(Collections.singleton(id));
 
         return "<form action=\"/add\" method=\"GET\">\n" +
                 "<button>Back to the main page</button>\n" +

@@ -75,11 +75,19 @@ public class Student {
 
     @Override
     public String toString() {
+
+
         return "<h2>Student " + id + "</h2>"+
                 "<ul> " +
                 "<li>" + "Firstname:" + firstName + "</li> " +
                 "<li>Tea</li> " +
                 "<li>Milk</li> " +
-                "</ul>";
+                "</ul>" +
+                "<form action=\"/studentdelete\" method=\"POST\">\n" +
+                "<name=\"getId()\">" +
+                "<button>Delete" + getId() + "</button>\n" +
+                "</form>";
     }
+
+
 }
