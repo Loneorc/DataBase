@@ -72,4 +72,14 @@ public class Student {
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return "<h2>ID" + id + "</h2>"+
+                "<ul> " +
+                "<li>" + "Firsname:" + firstName + "</li> " +
+                "<li>Tea</li> " +
+                "<li>Milk</li> " +
+                "</ul>";
+    }
 }

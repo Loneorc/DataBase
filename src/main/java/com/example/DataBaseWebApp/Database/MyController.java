@@ -40,10 +40,10 @@ public class MyController {
 
     @PostMapping("/student")
     @ResponseBody
-    public ResponseEntity<List<Student>> printStudent(@RequestParam String firstName, String lastName, int age,
+    public String printStudent(@RequestParam String firstName, String lastName, int age,
                                String email, String department, int phoneNumber){
 
-        List<Student> students = new ArrayList<>();
+        //List<Student> students = new ArrayList<>();
 
         Student student = new Student();
         student.setFirstName(firstName);
@@ -54,12 +54,16 @@ public class MyController {
         student.setPhoneNumber(phoneNumber);
         studentRepository.save(student);
 
-        students.add(student);
-        for (Student student1 : students){
-            return ResponseEntity.ok(students);
-        }
+        //students.add(student);
 
-       return ResponseEntity.ok(students);
+       return "Student Added!";
     }
+
+    @GetMapping("/studentcheck")
+    @ResponseBody
+    public String getStudent(){
+        return studentRepository.findAll().toString();
+    }
+
 
 }
