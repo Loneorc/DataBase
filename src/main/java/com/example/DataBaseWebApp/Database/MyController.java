@@ -82,9 +82,9 @@ public class MyController {
 
     }
 
-    @PostMapping("/studentdelete")
+    @GetMapping("/studentdelete")
     @ResponseBody
-    public String deleteStudent(long id){
+    public String deleteStudent(@RequestParam long id){
 
         studentRepository.deleteAllById(Collections.singleton(id));
 
@@ -94,7 +94,6 @@ public class MyController {
                 "Student with " + id + " was deleted!\n"
                 + studentRepository.findAll().toString();
     }
-
 
 
 }

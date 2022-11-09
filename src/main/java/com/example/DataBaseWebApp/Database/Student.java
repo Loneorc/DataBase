@@ -29,7 +29,7 @@ public class Student {
         this.firstName = name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -75,7 +75,7 @@ public class Student {
 
     @Override
     public String toString() {
-
+String link  = "<a href=\"/studentdelete?id=" + id +"\">DELETE</a>\"";
 
         return "<h2>Student " + id + "</h2>"+
                 "<ul> " +
@@ -83,10 +83,11 @@ public class Student {
                 "<li>Tea</li> " +
                 "<li>Milk</li> " +
                 "</ul>" +
-                "<form action=\"/studentdelete\" method=\"POST\">\n" +
-                "<name=\"getId()\">" +
+                "<form action=\"/studentdelete?id=1\" method=\"GET\">\n" +
+                //"<name=\"getId()\">" +
                 "<button>Delete" + getId() + "</button>\n" +
-                "</form>";
+                "</form>" +
+                link;
     }
 
 
