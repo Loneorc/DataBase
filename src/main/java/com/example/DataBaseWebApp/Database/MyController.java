@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,15 @@ public class MyController {
                 "<input name=\"department\" placeholder=\"department\">\n"+
                 "<input name=\"phoneNumber\" placeholder=\"phoneNumber\">\n"+
                 "<button>Go</button>\n" +
-                "</form>");
+                "</form>" +
+                 "<form action=\"/studentcheck\" method=\"GET\">" +
+                "<button>Print all students</button>" +
+                "</form>" +
+                "<form action=\"/studentdelete\" method=\"POST\">" +
+                "<input name=\"id\" placeholder=\"id\">\n" +
+                "<button>Delete student with ID</button>" +
+                "</form>"
+                );
     }
 
     @PostMapping("/student")
@@ -56,14 +65,33 @@ public class MyController {
 
         //students.add(student);
 
-       return "Student Added!";
+       return  "Student Added!" + "<form action=\"/add\" method=\"GET\">\n" +
+               "<button>Back - Add another student</button>\n" +
+               "</form>";
     }
 
     @GetMapping("/studentcheck")
     @ResponseBody
     public String getStudent(){
-        return studentRepository.findAll().toString();
+        return "<form action=\"/add\" method=\"GET\">\n" +
+                "<button>Back to the main page</button>\n" +
+                "</form>" +
+                studentRepository.findAll().toString();
     }
+
+    @PostMapping("/studentdelete")
+    @ResponseBody
+    public String deleteStudent(long id){
+        studentRepository.deleteAllById(Collections.singleton(id));
+
+
+        return "<form action=\"/add\" method=\"GET\">\n" +
+                "<button>Back to the main page</button>\n" +
+                "</form>" +
+                "Student with " + id + " was deleted!\n"
+                + studentRepository.findAll().toString();
+    }
+
 
 
 }

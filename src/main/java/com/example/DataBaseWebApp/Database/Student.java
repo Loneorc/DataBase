@@ -75,9 +75,9 @@ public class Student {
 
     @Override
     public String toString() {
-        return "<h2>ID" + id + "</h2>"+
+        return "<h2>Student " + id + "</h2>"+
                 "<ul> " +
-                "<li>" + "Firsname:" + firstName + "</li> " +
+                "<li>" + "Firstname:" + firstName + "</li> " +
                 "<li>Tea</li> " +
                 "<li>Milk</li> " +
                 "</ul>";
