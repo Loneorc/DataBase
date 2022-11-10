@@ -82,50 +82,7 @@ public class MyController {
     @PostMapping("/studentsearch")
     @ResponseBody
     public String findStudentByEverything(String searchInput) {
-        Iterable<Student> students = studentRepository.findAll();
-
-        for (Student student : students) {
-            if (student.getFirstName().equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            } else if (student.getLastName().equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            } else if (student.getEmail().equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            } else if (student.getDepartment().equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            } else if (String.valueOf(student.getId()).equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            }else if (String.valueOf(student.getAge()).equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            }else if (String.valueOf(student.getPhoneNumber()).equals(searchInput)) {
-                return student.toString() +
-                        "<form action=\"/add\" method=\"GET\">\n" +
-                        "<button>Back to main page</button>\n" +
-                        "</form>";
-            }
-        }
-            return "There is no student with that name!" + "<form action=\"/add\" method=\"GET\">\n" +
-                    "<button>Back to main page</button>\n" +
-                    "</form>";
-
+        return studentService.findStudentTotalForm(searchInput);
     }
 }
 

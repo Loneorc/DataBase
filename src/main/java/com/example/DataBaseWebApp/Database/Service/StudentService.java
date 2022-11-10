@@ -12,4 +12,5 @@ public interface StudentService {
     String updateDoneForm(long id, String firstName, String lastName, int age,
                           String email, String department, int phoneNumber);
     String findStudentForm(String lastName);
+    String findStudentTotalForm(String lastName);
 }
