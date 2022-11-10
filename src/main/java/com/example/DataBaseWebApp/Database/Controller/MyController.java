@@ -1,5 +1,8 @@
-package com.example.DataBaseWebApp.Database;
+package com.example.DataBaseWebApp.Database.Controller;
 
+import com.example.DataBaseWebApp.Database.Entity.Student;
+import com.example.DataBaseWebApp.Database.Service.StudentService;
+import com.example.DataBaseWebApp.Database.StudentRepository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,38 +17,18 @@ import java.util.Collections;
 public class MyController {
 
     private StudentRepository studentRepository;
-
+    private StudentService studentService;
     @Autowired
-    public MyController(StudentRepository studentRepository) {
+    public MyController(StudentRepository studentRepository, StudentService studentService) {
         this.studentRepository = studentRepository;
+        this.studentService = studentService;
     }
 
     @GetMapping("/add")
     @ResponseBody
-    public ResponseEntity<String> addsStudent() {
+    public String addsStudent() {
 
-
-        return ResponseEntity.ok("<form action=\"/student\" method=\"POST\">\n" +
-                "<input name=\"firstName\" placeholder=\"Your firstname\">\n" +
-                "<input name=\"lastName\" placeholder=\"lastName\">\n" +
-                "<input name=\"age\" placeholder=\"age\">\n"+
-                "<input name=\"email\" placeholder=\"email\">\n"+
-                "<input name=\"department\" placeholder=\"department\">\n"+
-                "<input name=\"phoneNumber\" placeholder=\"phoneNumber\">\n"+
-                "<button>Go</button>\n" +
-                "</form>" +
-                 "<form action=\"/studentcheck\" method=\"GET\">" +
-                "<button>Print all students</button>" +
-                "</form>" +
-                "<form action=\"/studentdelete\" method=\"GET\">" +
-                "<input name=\"id\" placeholder=\"id\">\n" +
-                "<button>Delete student with ID</button>" +
-                "</form>" +
-                        "<form action=\"/studentfind\" method=\"GET\">" +
-                        "<input name=\"id\" placeholder=\"id\">\n" +
-                        "<button>Delete student with ID</button>" +
-                        "</form>"
-                );
+        return  studentService.mainPage();
     }
 
     @PostMapping("/student")
@@ -53,18 +36,7 @@ public class MyController {
     public String printStudent(@RequestParam String firstName, String lastName, int age,
                                String email, String department, int phoneNumber){
 
-        //List<Student> students = new ArrayList<>();
-
-        Student student = new Student();
-        student.setFirstName(firstName);
-        student.setLastName(lastName);
-        student.setAge(age);
-        student.setEmail(email);
-        student.setDepartment(department);
-        student.setPhoneNumber(phoneNumber);
-        studentRepository.save(student);
-
-        //students.add(student);
+       studentService.settingNewStudent( firstName, lastName, age, email, department, phoneNumber);
 
        return  "Student Added!" + "<form action=\"/add\" method=\"GET\">\n" +
                "<button>Back - Add another student</button>\n" +
@@ -76,12 +48,9 @@ public class MyController {
     public String getStudent(){
 
 
-        Iterable<Student> allStudents = studentRepository.findAll();
+        //Iterable<Student> allStudents = studentRepository.findAll();
 
-        return "<form action=\"/add\" method=\"GET\">\n" +
-                "<button>Back to the main page</button>\n" +
-                "</form>" +
-                studentRepository.findAll();
+        return studentService.printAllStudents();
 
 
     }

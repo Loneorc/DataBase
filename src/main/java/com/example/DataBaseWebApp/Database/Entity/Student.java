@@ -1,4 +1,4 @@
-package com.example.DataBaseWebApp.Database;
+package com.example.DataBaseWebApp.Database.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
