@@ -38,7 +38,11 @@ public class StudentServiceImpl implements StudentService {
                 "</form>" +
                 "<form action=\"/studentfind\" method=\"POST\">" +
                 "<input name=\"lastName\" placeholder=\"Last Name\">\n" +
-                "<button>Find student by last name.</button>" +
+                "<button>Find student by last name</button>" +
+                "</form>" +
+                "<form action=\"/studentsearch\" method=\"POST\">" +
+                "<input name=\"searchInput\" placeholder=\"Search Input\">\n" +
+                "<button>Find student by any attribute</button>" +
                 "</form>";
     }
 
