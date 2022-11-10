@@ -37,10 +37,14 @@ public class MyController {
                  "<form action=\"/studentcheck\" method=\"GET\">" +
                 "<button>Print all students</button>" +
                 "</form>" +
-                "<form action=\"/studentdelete\" method=\"POST\">" +
+                "<form action=\"/studentdelete\" method=\"GET\">" +
                 "<input name=\"id\" placeholder=\"id\">\n" +
                 "<button>Delete student with ID</button>" +
-                "</form>"
+                "</form>" +
+                        "<form action=\"/studentfind\" method=\"GET\">" +
+                        "<input name=\"id\" placeholder=\"id\">\n" +
+                        "<button>Delete student with ID</button>" +
+                        "</form>"
                 );
     }
 
@@ -100,17 +104,18 @@ public class MyController {
     public ResponseEntity<String>  updateStudent(@RequestParam long id){
 
 
-        String updateLink = "<a href=\"/studentupdatedone?id=" + id + "&firstname=" + studentRepository.findById(id).get().getFirstName() + "\">UPDATE</a>\"";
+        Student student = studentRepository.findById(id).get();
+        //String updateLink = "<a href= 'studentupdatedone?id='+ id + "&firstname=" + student.getFirstName() + "\">UPDATE</a>\"";
 
         return
-        ResponseEntity.ok("<form action=\"/studentupdatedone method=\"POST\">\n" +
-                "<input name=\"id\" placeholder= " + studentRepository.findById(id).get().getId() + " >\n" +
-                "<input name=\"firstName\" placeholder= " + studentRepository.findById(id).get().getFirstName() + " >\n" +
-                "<input name=\"lastName\" placeholder= " + studentRepository.findById(id).get().getLastName() + ">\n" +
-                "<input name=\"age\" placeholder= " + studentRepository.findById(id).get().getAge() + " >\n"+
-                "<input name=\"email\" placeholder= " + studentRepository.findById(id).get().getEmail() + " >\n"+
-                "<input name=\"department\" placeholder= " + studentRepository.findById(id).get().getDepartment() + " >\n"+
-                "<input name=\"phoneNumber\" placeholder= " + studentRepository.findById(id).get().getPhoneNumber() + " >\n"+
+        ResponseEntity.ok("<form action='/studentupdatedone' method='POST'>\n" +
+                "<input name='id' placeholder= " + student.getId() + " >\n" +
+                "<input name='firstName' placeholder= " + student.getFirstName() + " >\n" +
+                "<input name='lastName' placeholder= " + student.getLastName() + ">\n" +
+                "<input name='age' placeholder= " + student.getAge() + " >\n"+
+                "<input name='email' placeholder= " + student.getEmail() + " >\n"+
+                "<input name='department' placeholder= " + student.getDepartment() + " >\n"+
+                "<input name='phoneNumber' placeholder= " + student.getPhoneNumber() + " >\n"+
                 "<button>SET</button>\n" +
                 "</form>" +
 
@@ -130,9 +135,9 @@ public class MyController {
         studentRepository.findById(id).get().setDepartment(department);
         studentRepository.findById(id).get().setPhoneNumber(phoneNumber);*/
 
+Student studentUpdate= studentRepository.findById(id).get();
 
-
-        Student studentUpdate = new Student();
+        //Student studentUpdate = new Student();
         studentUpdate.setFirstName(firstName);
         studentUpdate.setLastName(lastName);
         studentUpdate.setAge(age);
