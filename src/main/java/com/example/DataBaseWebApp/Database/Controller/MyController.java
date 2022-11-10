@@ -70,5 +70,11 @@ public class MyController {
         return  studentService.updateDoneForm(id, firstName, lastName, age, email, department, phoneNumber);
     }
 
+    @PostMapping("/studentfind")
+    @ResponseBody
+    public String findStudent(@RequestParam String lastName){
+
+        return studentService.findStudentForm(lastName);
+    }
 
 }

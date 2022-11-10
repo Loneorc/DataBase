@@ -36,9 +36,9 @@ public class StudentServiceImpl implements StudentService {
                 "<input name=\"id\" placeholder=\"id\">\n" +
                 "<button>Delete student with ID</button>" +
                 "</form>" +
-                "<form action=\"/studentfind\" method=\"GET\">" +
-                "<input name=\"id\" placeholder=\"id\">\n" +
-                "<button>Find student with ID</button>" +
+                "<form action=\"/studentfind\" method=\"POST\">" +
+                "<input name=\"lastName\" placeholder=\"Last Name\">\n" +
+                "<button>Find student by last name.</button>" +
                 "</form>";
     }
 
@@ -112,6 +112,23 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(studentUpdate);
 
         return "Student Updated!!" + "<form action=\"/add\" method=\"GET\">\n" +
+                "<button>Back to main page</button>\n" +
+                "</form>";
+    }
+
+    @Override
+    public String findStudentForm(String lastName) {
+        Iterable<Student> students = studentRepository.findAll();
+
+        for (Student student : students) {
+            if (student.getLastName().equals(lastName)){
+                return student.toString() +
+                        "<form action=\"/add\" method=\"GET\">\n" +
+                        "<button>Back to main page</button>\n" +
+                        "</form>";
+            }
+        }
+        return "There is no student with that name!" + "<form action=\"/add\" method=\"GET\">\n" +
                 "<button>Back to main page</button>\n" +
                 "</form>";
     }
