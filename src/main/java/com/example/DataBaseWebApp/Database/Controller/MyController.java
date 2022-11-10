@@ -4,14 +4,13 @@ import com.example.DataBaseWebApp.Database.Entity.Student;
 import com.example.DataBaseWebApp.Database.Service.StudentService;
 import com.example.DataBaseWebApp.Database.StudentRepository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collections;
+import java.util.List;
 
 @Controller
 public class MyController {
@@ -76,13 +75,41 @@ public class MyController {
     @ResponseBody
     public String findStudent(@RequestParam String lastName) {
 
-        return studentService.findStudentForm(lastName);
+        boolean isNumeric = lastName.chars().allMatch( Character::isDigit );
+        String returnValue;
+
+        if (isNumeric){
+            returnValue = studentRepository.findByIdOrAgeOrPhoneNumber(Long.parseLong(lastName), Integer.parseInt(lastName), Integer.parseInt(lastName)).toString();
+            if(returnValue.equals(null)){
+                return "There is no student with that attribute!" + "<form action=\"/add\" method=\"GET\">\n" +
+                        "<button>Back to main page</button>\n" +
+                        "</form>";
+            } else {
+                return returnValue;
+            }
+        } else  {
+
+            returnValue = studentRepository.findByLastNameOrFirstNameOrDepartmentOrEmail(lastName, lastName, lastName, lastName).toString();
+            if(returnValue.equals(null)){
+                return "There is no student with that attribute!" + "<form action=\"/add\" method=\"GET\">\n" +
+                        "<button>Back to main page</button>\n" +
+                        "</form>";
+            } else {
+                return returnValue;
+            }
+        }
     }
 
+    // This is here but not used! Forget it!
     @PostMapping("/studentsearch")
     @ResponseBody
-    public String findStudentByEverything(String searchInput) {
-        return studentService.findStudentTotalForm(searchInput);
+    public String findStudentByEverything(@RequestParam String lastName) {
+        boolean isNumeric = lastName.chars().allMatch( Character::isDigit );
+
+        if (isNumeric){
+            return studentRepository.findByIdOrAgeOrPhoneNumber(Long.parseLong(lastName), Integer.parseInt(lastName), Integer.parseInt(lastName)).toString();
+        }
+        return studentRepository.findByLastNameOrFirstNameOrDepartmentOrEmail(lastName, lastName, lastName, lastName).toString();
     }
 }
 

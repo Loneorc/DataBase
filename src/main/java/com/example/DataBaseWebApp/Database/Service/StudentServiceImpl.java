@@ -3,6 +3,7 @@ package com.example.DataBaseWebApp.Database.Service;
 import com.example.DataBaseWebApp.Database.Entity.Student;
 import com.example.DataBaseWebApp.Database.StudentRepository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +38,7 @@ public class StudentServiceImpl implements StudentService {
                 "<button>Delete student with ID</button>" +
                 "</form>" +
                 "<form action=\"/studentfind\" method=\"POST\">" +
-                "<input name=\"lastName\" placeholder=\"Last Name\">\n" +
-                "<button>Find student by last name</button>" +
-                "</form>" +
-                "<form action=\"/studentsearch\" method=\"POST\">" +
-                "<input name=\"searchInput\" placeholder=\"Search Input\">\n" +
+                "<input name=\"lastName\" placeholder=\"Search Input\">\n" +
                 "<button>Find student by any attribute</button>" +
                 "</form>";
     }
@@ -124,6 +121,7 @@ public class StudentServiceImpl implements StudentService {
     public String findStudentForm(String lastName) {
         Iterable<Student> students = studentRepository.findAll();
 
+
         for (Student student : students) {
             if (student.getLastName().equals(lastName)){
                 return student.toString() +
@@ -185,4 +183,5 @@ public class StudentServiceImpl implements StudentService {
 
 
     }
+
 }
