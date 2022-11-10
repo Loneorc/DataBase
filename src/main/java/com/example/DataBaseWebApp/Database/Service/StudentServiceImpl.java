@@ -3,7 +3,10 @@ package com.example.DataBaseWebApp.Database.Service;
 import com.example.DataBaseWebApp.Database.Entity.Student;
 import com.example.DataBaseWebApp.Database.StudentRepository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -35,12 +38,12 @@ public class StudentServiceImpl implements StudentService {
                 "</form>" +
                 "<form action=\"/studentfind\" method=\"GET\">" +
                 "<input name=\"id\" placeholder=\"id\">\n" +
-                "<button>Delete student with ID</button>" +
+                "<button>Find student with ID</button>" +
                 "</form>";
     }
 
     @Override
-    public void settingNewStudent(String firstName, String lastName, int age, String email, String department, int phoneNumber) {
+    public String settingNewStudent(String firstName, String lastName, int age, String email, String department, int phoneNumber) {
         Student student = new Student();
         student.setFirstName(firstName);
         student.setLastName(lastName);
@@ -49,39 +52,67 @@ public class StudentServiceImpl implements StudentService {
         student.setDepartment(department);
         student.setPhoneNumber(phoneNumber);
         studentRepository.save(student);
+
+        return "Student Added!" + "<form action=\"/add\" method=\"GET\">\n" +
+                "<button>Back - Add another student</button>\n" +
+                "</form>";
     }
 
     @Override
     public String printAllStudents() {
-        Iterable<Student> student = studentRepository.findAll();
-        String deleteLink  = "<a href=\"/studentdelete?id=" + student.getId() +"\">DELETE</a>\"";
-        String updateLink = "<a href=\"/studentupdate?id=" + student.getId() +"\">UPDATE</a>\"";
 
+        Iterable<Student> students = studentRepository.findAll();
+
+        for (Student student : students) {
+            String deleteLink  = "<a href=\"/studentdelete?id=" + student.getId() +"\">DELETE</a>\"";
+            String updateLink = "<a href=\"/studentupdate?id=" + student.getId() +"\">UPDATE</a>\"";
+        }
+        return students.toString();
+    }
+
+    @Override
+    public String deleteForm(long id) {
+
+        studentRepository.deleteAllById(Collections.singleton(id));
         return "<form action=\"/add\" method=\"GET\">\n" +
                 "<button>Back to the main page</button>\n" +
                 "</form>" +
-                "<table style=\"width:30%\"; text-align:center;> " +
-                "<tr> " +
-                "<th style=\"text-align: left\">ID:</th> " +
-                "<th style=\"text-align: left\">Firstname:</th> " +
-                "<th style=\"text-align: left\">Lastname:</th> " +
-                "<th style=\"text-align: left\">Age:</th> " +
-                "<th style=\"text-align: left\">E-mail:</th> " +
-                "<th style=\"text-align: left\">Department:</th> " +
-                "<th style=\"text-align: left\">Phone Number:</th> " +
-                "</tr>" +
-                "<tr>" +
-                "<td style=\"text-align: left\">" + student.getId() + "</td>" +
-                "<td style=\"text-align: left\">" + student.getFirstName() + "</td>" +
-                "<td style=\"text-align: left\">" + student.getLastName() + "</td>" +
-                "<td style=\"text-align: left\">" + student.getAge() + "</td>" +
-                "<td style=\"text-align: left\">" + student.getEmail() + "</td>" +
-                "<td style=\"text-align: left\">" + student.getDepartment() + "</td>" +
-                "<td style=\"text-align: left\">" + student.getPhoneNumber() + "</td>" +
-                "</tr>" +
-                "<tr>" +
-                "<td>" +deleteLink + "</td>" +
-                "<td>" +updateLink + "</td>" +
-                "</tr>";
+                "Student with " + id + " was deleted!\n"
+                + studentRepository.findAll().toString();
+    }
+
+    @Override
+    public String updateForm(long id) {
+        Student student = studentRepository.findById(id).get();
+
+        return "<form action='/studentupdatedone' method='POST'>\n" +
+                "<input name='id' placeholder= " + student.getId() + " >\n" +
+                "<input name='firstName' placeholder= " + student.getFirstName() + " >\n" +
+                "<input name='lastName' placeholder= " + student.getLastName() + ">\n" +
+                "<input name='age' placeholder= " + student.getAge() + " >\n"+
+                "<input name='email' placeholder= " + student.getEmail() + " >\n"+
+                "<input name='department' placeholder= " + student.getDepartment() + " >\n"+
+                "<input name='phoneNumber' placeholder= " + student.getPhoneNumber() + " >\n"+
+                "<button>SET</button>\n" +
+                "</form>" +
+                studentRepository.findById(id);
+    }
+
+    @Override
+    public String updateDoneForm(long id, String firstName, String lastName, int age, String email, String department, int phoneNumber) {
+
+        Student studentUpdate= studentRepository.findById(id).get();
+
+        studentUpdate.setFirstName(firstName);
+        studentUpdate.setLastName(lastName);
+        studentUpdate.setAge(age);
+        studentUpdate.setEmail(email);
+        studentUpdate.setDepartment(department);
+        studentUpdate.setPhoneNumber(phoneNumber);
+        studentRepository.save(studentUpdate);
+
+        return "Student Updated!!" + "<form action=\"/add\" method=\"GET\">\n" +
+                "<button>Back to main page</button>\n" +
+                "</form>";
     }
 }
