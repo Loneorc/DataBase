@@ -75,20 +75,44 @@ public class Student {
 
     @Override
     public String toString() {
-String deleteLink  = "<a href=\"/studentdelete?id=" + id +"\">DELETE</a>\"";
-String updateLink = "<a href=\"/studentupdate?id=" + id +"\">UPDATE</a>\"";
+        String deleteLink  = "<a href=\"/studentdelete?id=" + id +"\">DELETE</a>\"";
+        String updateLink = "<a href=\"/studentupdate?id=" + id +"\">UPDATE</a>\"";
 
-        return "<h2>Student " + id + "</h2>"+
+        /*return "<h2>Student " + id + "</h2>"+
                 "<ul> " +
-                "<li>" + "Firstname:" + firstName + "</li> " +
-                "<li>Tea</li> " +
-                "<li>Milk</li> " +
+                "<li>" + "Firstname:    " + firstName + "</li> " +
+                "<li>" + "Lastname:     " + lastName + "</li> " +
+                "<li>" + "Age:          " + age + "</li> " +
+                "<li>" + "E-mail:       " + email + "</li> " +
+                "<li>" + "Department:   " + department + "</li> " +
+                "<li>" + "Phone Number: " + phoneNumber + "</li> " +
                 "</ul>" +
-                "<form action=\"/studentdelete?id="+ id+"\" method=\"GET\">\n" +
-                //"<name=\"getId()\">" +
-                "<button>Delete" + getId() + "</button>\n" +
-                "</form>" +
-                deleteLink + "\t" + updateLink;
+                deleteLink + "\t" + updateLink;*/
+
+        return
+        "<table style=\"width:30%\"; text-align:center;> " +
+        "<tr> " +
+            "<th style=\"text-align: left\">ID:</th> " +
+            "<th style=\"text-align: left\">Firstname:</th> " +
+            "<th style=\"text-align: left\">Lastname:</th> " +
+            "<th style=\"text-align: left\">Age:</th> " +
+            "<th style=\"text-align: left\">E-mail:</th> " +
+            "<th style=\"text-align: left\">Department:</th> " +
+            "<th style=\"text-align: left\">Phone Number:</th> " +
+        "</tr>" +
+        "<tr>" +
+            "<td style=\"text-align: left\">" + id + "</td>" +
+            "<td style=\"text-align: left\">" + firstName + "</td>" +
+            "<td style=\"text-align: left\">" + lastName + "</td>" +
+            "<td style=\"text-align: left\">" + age + "</td>" +
+            "<td style=\"text-align: left\">" + email + "</td>" +
+            "<td style=\"text-align: left\">" + department + "</td>" +
+            "<td style=\"text-align: left\">" + phoneNumber + "</td>" +
+        "</tr>" +
+        "<tr>" +
+            "<td>" +deleteLink + "</td>" +
+            "<td>" +updateLink + "</td>" +
+        "</tr>";
     }
 
 

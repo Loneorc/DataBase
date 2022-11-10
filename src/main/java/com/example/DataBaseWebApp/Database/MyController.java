@@ -77,7 +77,7 @@ public class MyController {
         return "<form action=\"/add\" method=\"GET\">\n" +
                 "<button>Back to the main page</button>\n" +
                 "</form>" +
-                studentRepository.findAll().toString();
+                studentRepository.findAll();
 
 
     }
@@ -97,11 +97,14 @@ public class MyController {
 
     @GetMapping("/studentupdate")
     @ResponseBody
-    public ResponseEntity<String>  updateStudent(@RequestParam long id, String firstname){
+    public ResponseEntity<String>  updateStudent(@RequestParam long id){
 
-String test = "Test";
+
+        String updateLink = "<a href=\"/studentupdatedone?id=" + id + "&firstname=" + studentRepository.findById(id).get().getFirstName() + "\">UPDATE</a>\"";
+
         return
-        ResponseEntity.ok("<form action=\"/student\" method=\"POST\">\n" +
+        ResponseEntity.ok("<form action=\"/studentupdatedone method=\"POST\">\n" +
+                "<input name=\"id\" placeholder= " + studentRepository.findById(id).get().getId() + " >\n" +
                 "<input name=\"firstName\" placeholder= " + studentRepository.findById(id).get().getFirstName() + " >\n" +
                 "<input name=\"lastName\" placeholder= " + studentRepository.findById(id).get().getLastName() + ">\n" +
                 "<input name=\"age\" placeholder= " + studentRepository.findById(id).get().getAge() + " >\n"+
@@ -111,8 +114,41 @@ String test = "Test";
                 "<button>SET</button>\n" +
                 "</form>" +
 
-                studentRepository.findById(id).toString());
-
+                studentRepository.findById(id));
     }
+
+
+    @PostMapping("/studentupdatedone")
+    @ResponseBody
+    public String updateDoneStudent(@RequestParam long id, String firstName, String lastName, int age,
+                               String email, String department, int phoneNumber){
+
+        /*studentRepository.findById(id).get().setFirstName(firstName);
+        studentRepository.findById(id).get().setLastName(lastName);
+        studentRepository.findById(id).get().setAge(age);
+        studentRepository.findById(id).get().setEmail(email);
+        studentRepository.findById(id).get().setDepartment(department);
+        studentRepository.findById(id).get().setPhoneNumber(phoneNumber);*/
+
+
+
+        Student studentUpdate = new Student();
+        studentUpdate.setFirstName(firstName);
+        studentUpdate.setLastName(lastName);
+        studentUpdate.setAge(age);
+        studentUpdate.setEmail(email);
+        studentUpdate.setDepartment(department);
+        studentUpdate.setPhoneNumber(phoneNumber);
+        studentRepository.save(studentUpdate);
+
+
+
+        return  "Student Updated!!" + "<form action=\"/add\" method=\"GET\">\n" +
+                "<button>Back to main page</button>\n" +
+                "</form>";
+    }
+
+
+
 
 }
