@@ -15,9 +15,9 @@ public class Student {
     private String department;
     private int phoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name="course_id", nullable=false)
-    private Course course;
+//    @ManyToOne
+//    @JoinColumn(name="course_id", nullable=false)
+//    private Course course;
 
     public void setId(long id) {
         this.id = id;
