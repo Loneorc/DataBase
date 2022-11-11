@@ -1,8 +1,6 @@
 package com.example.DataBaseWebApp.Database.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Student {
@@ -16,6 +14,10 @@ public class Student {
     private String email;
     private String department;
     private int phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name="course_id", nullable=false)
+    private Course course;
 
     public void setId(long id) {
         this.id = id;
@@ -90,7 +92,22 @@ public class Student {
                 deleteLink + "\t" + updateLink;*/
 
         return
-        "<table style=\"width:30%\"; text-align:center;> " +
+         "<style> " +
+                 "table { " +
+                 "font-family: arial, sans-serif; " +
+                 "border-collapse: collapse; " +
+                 "width: 100%;" +
+                 "} " +
+                 "td, th { " +
+                 "border: 1px solid #dddddd; " +
+                 "text-align: left; " +
+                 "padding: 8px;" +
+                 "} " +
+                 "tr:nth-child(even) { " +
+                 "background-color: #dddddd;" +
+                 "}" +
+                 "</style>" +
+        "<table style=\"width:40%\" text-align:center> " +
         "<tr> " +
             "<th style=\"text-align: left\">ID:</th> " +
             "<th style=\"text-align: left\">Firstname:</th> " +

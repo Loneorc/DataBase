@@ -42,23 +42,18 @@ public class MyController {
     @GetMapping("/studentcheck")
     @ResponseBody
     public String getStudent() {
-
         return studentService.printAllStudents();
-
     }
 
     @GetMapping("/studentdelete")
     @ResponseBody
     public String deleteStudent(@RequestParam long id) {
-
         return studentService.deleteForm(id);
     }
 
     @GetMapping("/studentupdate")
     @ResponseBody
     public String updateStudent(@RequestParam long id) {
-
-
         return studentService.updateForm(id);
     }
 
@@ -80,7 +75,7 @@ public class MyController {
 
         if (isNumeric){
             returnValue = studentRepository.findByIdOrAgeOrPhoneNumber(Long.parseLong(lastName), Integer.parseInt(lastName), Integer.parseInt(lastName)).toString();
-            if(returnValue.equals(null)){
+            if(returnValue.isBlank()){
                 return "There is no student with that attribute!" + "<form action=\"/add\" method=\"GET\">\n" +
                         "<button>Back to main page</button>\n" +
                         "</form>";
@@ -90,7 +85,7 @@ public class MyController {
         } else  {
 
             returnValue = studentRepository.findByLastNameOrFirstNameOrDepartmentOrEmail(lastName, lastName, lastName, lastName).toString();
-            if(returnValue.equals(null)){
+            if(returnValue.isBlank()){
                 return "There is no student with that attribute!" + "<form action=\"/add\" method=\"GET\">\n" +
                         "<button>Back to main page</button>\n" +
                         "</form>";
