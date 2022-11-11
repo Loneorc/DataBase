@@ -70,6 +70,13 @@ public class MyController {
     @ResponseBody
     public String findStudent(@RequestParam String lastName) {
 
+        if (lastName.equals("")){
+            return "Please enter a value!" +
+                    "<form action=\"/add\" method=\"GET\">\n" +
+                    "<button>Back to the main page</button>\n" +
+                    "</form>";
+        }
+
         boolean isNumeric = lastName.chars().allMatch( Character::isDigit );
         String returnValue;
 
