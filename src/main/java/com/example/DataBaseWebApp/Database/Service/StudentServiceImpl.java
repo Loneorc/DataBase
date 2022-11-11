@@ -87,13 +87,13 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findById(id).get();
 
         return "<form action='/studentupdatedone' method='POST'>\n" +
-                "<input name='id' placeholder= " + student.getId() + " >\n" +
-                "<input name='firstName' placeholder= " + student.getFirstName() + " >\n" +
-                "<input name='lastName' placeholder= " + student.getLastName() + ">\n" +
-                "<input name='age' placeholder= " + student.getAge() + " >\n"+
-                "<input name='email' placeholder= " + student.getEmail() + " >\n"+
-                "<input name='department' placeholder= " + student.getDepartment() + " >\n"+
-                "<input name='phoneNumber' placeholder= " + student.getPhoneNumber() + " >\n"+
+                "<input name='id' value= " + student.getId() + " >\n" +
+                "<input name='firstName' value= " + student.getFirstName() + " >\n" +
+                "<input name='lastName' value= " + student.getLastName() + ">\n" +
+                "<input name='age' value= " + student.getAge() + " >\n"+
+                "<input name='email' value= " + student.getEmail() + " >\n"+
+                "<input name='department' value= " + student.getDepartment() + " >\n"+
+                "<input name='phoneNumber' value= " + student.getPhoneNumber() + " >\n"+
                 "<button>SET</button>\n" +
                 "</form>" +
                 studentRepository.findById(id);
